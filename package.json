@@ -1,0 +1,27 @@
+{
+  "name": "JacobBreen",
+  "version": "1.0.0",
+  "description": "Requirements to build JacobBreen.com",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jacob Breen",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "^10.2.4",
+    "connect-livereload": "^0.5.3",
+    "express": "^4.12.4",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.5.2",
+    "gulp-embedlr": "^0.5.2",
+    "gulp-jshint": "^1.11.0",
+    "gulp-less": "^3.0.3",
+    "gulp-livereload": "^3.8.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-util": "^3.0.5",
+    "tiny-lr": "^0.1.6"
+  }
+}
