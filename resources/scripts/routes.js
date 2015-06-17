@@ -4,7 +4,7 @@ function RouteController($routeProvider) {
         templateUrl: 'assets/partials/home.html',
         controller: 'HomeController'
     });
-    
+
     $routeProvider.otherwise({redirectTo: '/home'});
 };
 
