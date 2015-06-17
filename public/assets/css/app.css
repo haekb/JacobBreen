@@ -88,6 +88,7 @@ body {
 }
 .content .item {
   min-height: 200px;
+  margin-bottom: 1em;
 }
 .column-half {
   margin: 5px;
@@ -118,6 +119,9 @@ body {
   min-height: 200px;
   float: left;
 }
+.clear-fix {
+  clear: both;
+}
 .vertical-separator {
   border-right: solid 1px black;
 }
@@ -126,6 +130,7 @@ body {
   height: 64px;
   background-color: #2b2b2b;
   clear: both;
+  margin-top: 7em;
 }
 .footer ul {
   text-align: center;
