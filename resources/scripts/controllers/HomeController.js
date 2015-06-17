@@ -16,6 +16,8 @@ function HomeController($scope) {
         },
     ];
 
+    $scope.email = "general@jacobbreen.com";
+
 
 };
 

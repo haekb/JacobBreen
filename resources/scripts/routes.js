@@ -4,12 +4,7 @@ function RouteController($routeProvider) {
         templateUrl: 'assets/partials/home.html',
         controller: 'HomeController'
     });
-
-    $routeProvider.when('/contact', {
-        templateUrl: 'assets/partials/contact.html',
-        controller: 'ContactController'
-    });
-
+    
     $routeProvider.otherwise({redirectTo: '/home'});
 };
 

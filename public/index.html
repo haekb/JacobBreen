@@ -10,10 +10,16 @@
   <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
+    <!--[if lte IE 8]>
+    <p class="error">
+        You are using an unsupported browser. Please consider <a href="http://browsehappy.com/">upgrading.</a><br/>
+        You can also view my old website <a href="http://old.jacobbreen.com">here</a>
+    </p>
+    <![endif]-->
 
-  <div ng-view class="view-container"></div>
+    <div ng-view class="view-container"></div>
 
-  <script src="assets/js/vendor.js"></script>
-  <script src="assets/js/app.js"></script>
+    <script src="assets/js/vendor.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
