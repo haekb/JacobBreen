@@ -66,7 +66,7 @@ gulp.task('watch', ['lint','merge','views','less'], function() {
     gulp.watch([source_directory+'/*.js', source_directory+'/**/*.js'],[
         'lint',
         'merge',
-        'views',
+        //'views',
         'less'
     ]);
 });
