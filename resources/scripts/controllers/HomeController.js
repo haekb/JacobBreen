@@ -4,7 +4,7 @@ function HomeController($scope) {
     $scope.projects = [
         {
             "name": "JacobBreen.com",
-            "description": "Built on AngularJS, this site is designed to give you an idea of what I'm capable of creating.",
+            "description": "Hey, this looks familiar. Built on AngularJS, this site is designed to give you an idea of what I'm capable of creating.",
             "image": "assets/images/jacobbreen_preview.jpg",
             "url": "https://github.com/haekb/JacobBreen"
         },
