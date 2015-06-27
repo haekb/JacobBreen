@@ -75,7 +75,7 @@ gulp.task('less', function() {
 
 gulp.task('css', function() {
     // Vendor Source Files
-    gulp.src(vendor_files_js)
+    gulp.src(vendor_files_css)
         // Bundle to a single file
         .pipe(concat('vendor.css'))
         // Output it to our dist folder
