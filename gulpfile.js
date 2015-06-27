@@ -12,13 +12,25 @@ var gulp = require('gulp'),
     source_directory = "./resources/",
     build_directory  = "./public/",
     vendor_directory = "./vendor/",
-    vendor_files     = [
+    vendor_files_js     = [
         vendor_directory+'angular/angular.js',
         vendor_directory+'angular-loader/angular-loader.js',
         //'angular-loader/angular-mocks.js',
         vendor_directory+'angular-route/angular-route.js',
+        vendor_directory+'angular-xeditable/dist/js/xeditable.js',
         vendor_directory+'jquery/dist/jquery.js'
+    ];
+    vendor_files_css     = [
+        vendor_directory+'angular-xeditable/dist/css/xeditable.css',
+    ];
+    watch_directories = [
+        source_directory+'/*.js',
+        source_directory+'/*.css',
+        source_directory+'/**/*.js',
+        source_directory+'/**/*.css'
     ]
+
+
 
 // JSHint task
 gulp.task('lint', function() {
@@ -33,7 +45,7 @@ gulp.task('merge', function() {
     // Single point of entry (make sure not to src ALL your files, browserify will figure it out for you)
 
     // Vendor Source Files
-    gulp.src(vendor_files)
+    gulp.src(vendor_files_js)
         // Bundle to a single file
         .pipe(concat('vendor.js'))
         // Output it to our dist folder
@@ -61,12 +73,22 @@ gulp.task('less', function() {
         .pipe(gulp.dest(build_directory+'/assets/css/'));
 });
 
-gulp.task('watch', ['lint','merge','views','less'], function() {
+gulp.task('css', function() {
+    // Vendor Source Files
+    gulp.src(vendor_files_js)
+        // Bundle to a single file
+        .pipe(concat('vendor.css'))
+        // Output it to our dist folder
+        .pipe(gulp.dest(build_directory+'assets/css'));
+});
+
+gulp.task('watch', ['lint','merge','views','less','css'], function() {
     // Watch our scripts
-    gulp.watch([source_directory+'/*.js', source_directory+'/**/*.js'],[
+    gulp.watch(watch_directories,[
         'lint',
         'merge',
         //'views',
-        'less'
+        'less',
+        'css'
     ]);
 });
