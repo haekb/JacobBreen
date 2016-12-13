@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>JacobBreen.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:700,400' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div class="header">
+    <h1>Hello, I'm Jacob Breen
+        <span>I'm a Developer based in Toronto!</span>
+    </h1>
+</div>
+<div class="content-wrapper">
+    <div class="content">
+        <div class="column-half">
+            <div class="row">
+                <h2>Web Development</h2>
+                <label>Display? <input onclick="filter('web', this)" checked type="checkbox"/></label>
+            </div>
+            <p>
+                With experience in PHP, Python, MySQL, JavaScript, and various Linux distros. Along with technologies
+                and frameworks such as <a href="http://laravel.com/">Laravel</a>, <a href="https://angularjs.org/">AngularJS</a>,
+                and <a href="http://www.tornadoweb.org/en/stable/">Tornado</a>. I have built many web projects / web
+                applications over the years. And I strive to continue to learn new technologies and programming
+                languages in my spare time.
+            </p>
+        </div>
+        <div class="column-half">
+            <div class="row">
+                <h2>Game Development</h2>
+                <label>Display? <input onclick="filter('game', this)" checked type="checkbox"/></label>
+            </div>
+            <p>
+                With my experience in C, C++, and UnrealScript, I've created/contributed to game patches/updates. I
+                specialize in dealing with adding widescreen and/or multiple monitor support to old video games.
+            </p>
+        </div>
+    </div>
+    <div class="content">
+        <h2>What I've Worked On</h2>
+        <div data-type="web">
+            <a href="https://hoo.events/">
+                <div class="item hoo">
+                    <div class="column-info">
+                        <h1>
+                            Hoo (Web)
+                            <span>Currently working on various aspects of this fine event organization product.</span>
+                        </h1>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+        <div data-type="web">
+            <a href="https://github.com/haekb/JacobBreen">
+                <div class="item this-page">
+                    <div class="column-info">
+                        <h1>
+                            JacobBreen.com (Web)
+                            <span>Hey, this looks familiar. That's this site!</span>
+                        </h1>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+        <div data-type="web">
+            <a href="http://heythere.coffee/">
+                <div class="item coffee">
+
+                    <div class="column-info">
+                        <h1>
+                            Heythere.Coffee (Web)
+                            <span>Simple experiment using google maps api to find a coffee shop near you!</span>
+                        </h1>
+                    </div>
+
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+        <div data-type="web">
+            <a href="http://heythere.coffee/wbc3">
+                <div class="item wbc3-web">
+                    <div class="column-info">
+                        <h1>Warlords Battlecry III - Widescreen Patch Page (Web)
+                            <span>Small responsive patch page, highlighting key points of the release.</span>
+                        </h1>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+        <div data-type="game">
+            <a href="http://heythere.coffee/wbc3">
+                <div class="item wbc3-game">
+                    <div class="column-info">
+                        <h1>Warlords Battlecry III - Widescreen Patch (Game)
+                            <span>Unofficial patch that adds arbitrary resolutions selection with tweaks to UI and menus.</span>
+                        </h1>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+        <div data-type="game">
+            <a href="javascript:void(0)" onclick="contentWarning('http://store.steampowered.com/app/223470/')">
+                <div class="item postal2">
+                    <div class="column-info">
+                        <h1>Postal 2 - Steam Re-release Widescreen Fixes (Game)
+                            <span>Fixes that adds arbitrary resolutions selection with tweaks to UI and menus.</span>
+                        </h1>
+                    </div>
+                    <div class="clear-fix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <ul>
+        <li><a href="https://ca.linkedin.com/in/jakebreen4">LinkedIn</a></li>
+        <li><a href="http://www.jacobbreen.com/resume.pdf">Resume</a></li>
+        <li><a href="https://github.com/haekb">GitHub</a></li>
+        <li><a target="_top" href="mailto:work@jacobbreen.com">Contact</a></li>
+    </ul>
+</div>
+<script src="js/vendor.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

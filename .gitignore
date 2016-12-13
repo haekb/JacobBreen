@@ -6,5 +6,4 @@ tmp
 .DS_Store
 .idea
 vendor
-public/assets/css/
-public/assets/js/
+build/*

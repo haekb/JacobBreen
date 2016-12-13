@@ -1,94 +1,100 @@
-/**
- * Created by Jake on 6/14/2015.
- */
-var gulp = require('gulp'),
-    less = require('gulp-less'),
-    gutil = require('gulp-util'),
-    jshint = require('gulp-jshint'),
-    browserify = require('gulp-browserify'),
-    concat = require('gulp-concat'),
-    clean = require('gulp-clean'),
-    notify = require('gulp-notify'),
-    source_directory = "./resources/",
-    build_directory  = "./public/",
-    vendor_directory = "./vendor/",
-    vendor_files_js     = [
-        vendor_directory+'angular/angular.js',
-        vendor_directory+'angular-loader/angular-loader.js',
-        //'angular-loader/angular-mocks.js',
-        vendor_directory+'angular-route/angular-route.js',
-        vendor_directory+'angular-xeditable/dist/js/xeditable.js',
-        vendor_directory+'jquery/dist/jquery.js'
-    ];
-    vendor_files_css     = [
-        vendor_directory+'angular-xeditable/dist/css/xeditable.css',
-    ];
-    watch_directories = [
-        source_directory+'/*.js',
-        source_directory+'/*.css',
-        source_directory+'/**/*.js',
-        source_directory+'/**/*.css'
-    ]
+var gulp = require('gulp');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
+var del = require('del');
+var mainBowerFiles = require('gulp-main-bower-files');
+var gulpFilter = require('gulp-filter');
+var connect = require('gulp-connect');
+var inject = require('gulp-inject');
+var sass = require('gulp-sass');
 
+var paths = {
+    scripts: ['source/js/*.js'],
+    styles: ['source/css/*.css'],
+    sass: ['source/css/**/*.scss'],
+    images: 'source/img/**/*',
+    //dest: 'build',
+    //source: 'source'
+};
 
-
-// JSHint task
-gulp.task('lint', function() {
-    gulp.src(source_directory+'/*.js')
-        .pipe(jshint())
-        // You can look into pretty reporters as well, but that's another story
-        .pipe(jshint.reporter('default'));
+// Not all tasks need to use streams
+// A gulpfile is just another node program and you can use any package available on npm
+gulp.task('clean', function() {
+    // You can use multiple globbing patterns as you would with `gulp.src`
+    return del(['build']);
 });
 
-// Browserify task
-gulp.task('merge', function() {
-    // Single point of entry (make sure not to src ALL your files, browserify will figure it out for you)
+gulp.task('vendor-scripts', function() {
+    // Minify and copy all JavaScript (except vendor scripts)
+    // with sourcemaps all the way down
 
-    // Vendor Source Files
-    gulp.src(vendor_files_js)
-        // Bundle to a single file
+    var filterJS = gulpFilter('**/*.js', { restore: true });
+    return gulp.src('./bower.json')
+        .pipe(mainBowerFiles())
+        .pipe(filterJS)
         .pipe(concat('vendor.js'))
-        // Output it to our dist folder
-        .pipe(gulp.dest(build_directory+'assets/js'));
+        .pipe(uglify())
+        //.pipe(filterJS.restore)
+        .pipe(gulp.dest('build/js'));
+});
 
-    // Resource Source Files
-    gulp.src([source_directory+'/*.js', source_directory+'/**/*.js'])
-        // Bundle to a single file
+gulp.task('app-scripts', function() {
+    var filterJS = gulpFilter('**/*.js', { restore: true });
+    return gulp.src(paths.scripts)
+        .pipe(filterJS)
         .pipe(concat('app.js'))
-        // Output it to our dist folder
-        .pipe(gulp.dest(build_directory+'assets/js'));
+        .pipe(uglify())
+        .pipe(gulp.dest('build/js'));
 });
 
-// Views task
-gulp.task('views', function() {
-    // Any other view files from app/views
-    gulp.src(source_directory+'/partials/**/*')
-        // Will be put in the dist/views folder
-        .pipe(gulp.dest(build_directory+'/assets/partials/'));
-});
-
-gulp.task('less', function() {
-    gulp.src(source_directory+'/styles/less/*.less')
-        .pipe(less())
-        .pipe(gulp.dest(build_directory+'/assets/css/'));
-});
-
-gulp.task('css', function() {
-    // Vendor Source Files
-    gulp.src(vendor_files_css)
-        // Bundle to a single file
+gulp.task('styles', function() {
+    var filterCSS = gulpFilter('**/*.css', { restore: true });
+    return gulp.src('./bower_components/**/*.css')
+    //.pipe(filterCSS)
         .pipe(concat('vendor.css'))
-        // Output it to our dist folder
-        .pipe(gulp.dest(build_directory+'assets/css'));
+        //.pipe(filterCSS.restore)
+        .pipe(gulp.dest('build/css'));
 });
 
-gulp.task('watch', ['lint','merge','views','less','css'], function() {
-    // Watch our scripts
-    gulp.watch(watch_directories,[
-        'lint',
-        'merge',
-        //'views',
-        'less',
-        'css'
-    ]);
+
+gulp.task('sass', function () {
+    return gulp.src(paths.sass)
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('build/css'));
 });
+
+// Copy all static images
+gulp.task('images', function() {
+    return gulp.src(paths.images)
+    // Pass in options to the task
+    //.pipe(imagemin({optimizationLevel: 5}))
+        .pipe(gulp.dest('build/img'));
+});
+
+gulp.task('build', function() {
+    return gulp.start(['vendor-scripts','app-scripts','styles','sass','copy','images']);
+});
+
+// Rerun the task when a file changes
+gulp.task('watch', function() {
+    gulp.watch(paths.scripts, ['app-scripts']);
+    gulp.watch(paths.styles, ['styles']);
+    gulp.watch(paths.sass, ['sass']);
+    gulp.watch('./source/index.html', ['copy']);
+    gulp.watch(paths.images, ['images']);
+});
+
+gulp.task('copy', function() {
+    return gulp.src('./source/index.html')
+        .pipe(gulp.dest('./build'))
+});
+
+gulp.task('connect', function() {
+    connect.server({
+        root: 'build',
+        livereload: true
+    });
+});
+
+// The default task (called when you run `gulp` from cli)
+gulp.task('default', ['build', 'watch', 'connect']);
